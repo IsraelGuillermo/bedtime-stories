@@ -1,18 +1,61 @@
 import { Box, Fab, TextField, Typography } from "@material-ui/core"
-import { Formik } from "formik"
+import { Formik, ErrorMessage } from "formik"
 import { StoryObj } from "../../types/Story"
+import * as Yup from "yup"
+import badWords from "bad-words"
+
 export function Form() {
+  const badWordsFilter = new badWords()
   const initialValues: StoryObj = {
     primaryCharacter: "",
     secondaryCharacter: "",
     start: "",
     end: "",
   }
+  const validationSchema = Yup.object({
+    primaryCharacter: Yup.string()
+      .required("Text is required")
+      .test(
+        "no-bad-words",
+        "Input contains inappropriate language",
+        (value) => {
+          return !badWordsFilter.isProfane(value || "")
+        },
+      ),
+    secondaryCharacter: Yup.string()
+      .required("Text is required")
+      .test(
+        "no-bad-words",
+        "Input contains inappropriate language",
+        (value) => {
+          return !badWordsFilter.isProfane(value || "")
+        },
+      ),
+    start: Yup.string()
+      .required("Text is required")
+      .test(
+        "no-bad-words",
+        "Input contains inappropriate language",
+        (value) => {
+          return !badWordsFilter.isProfane(value || "")
+        },
+      ),
+    end: Yup.string()
+      .required("Text is required")
+      .test(
+        "no-bad-words",
+        "Input contains inappropriate language",
+        (value) => {
+          return !badWordsFilter.isProfane(value || "")
+        },
+      ),
+  })
 
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={(values) => console.log(values)}
+      validationSchema={validationSchema}
     >
       {({ values, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit}>
@@ -21,7 +64,6 @@ export function Form() {
               backgroundColor: "#3f50b5",
               borderRadius: 8,
               width: 400,
-              height: 500,
               display: "flex",
               justifyContent: "center",
               flexDirection: "column",
@@ -60,6 +102,7 @@ export function Form() {
                     style: { backgroundColor: "whitesmoke" },
                   }}
                   onChange={handleChange}
+                  helperText={<ErrorMessage name="primaryCharacter" />}
                 />
               </Box>
 
@@ -78,6 +121,7 @@ export function Form() {
                     style: { backgroundColor: "whitesmoke" },
                   }}
                   onChange={handleChange}
+                  helperText={<ErrorMessage name="secondaryCharacter" />}
                 />
               </Box>
               <Box my={0.5}>
@@ -97,6 +141,7 @@ export function Form() {
                     style: { backgroundColor: "whitesmoke" },
                   }}
                   onChange={handleChange}
+                  helperText={<ErrorMessage name="start" />}
                 />
               </Box>
               <Box my={0.5}>
@@ -116,6 +161,7 @@ export function Form() {
                     style: { backgroundColor: "whitesmoke" },
                   }}
                   onChange={handleChange}
+                  helperText={<ErrorMessage name="end" />}
                 />
               </Box>
             </Box>
