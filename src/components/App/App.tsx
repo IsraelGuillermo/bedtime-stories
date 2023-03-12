@@ -1,10 +1,10 @@
-import { Form } from "../Form"
+import { Home } from "../Pages/Home"
 import "./App.styles.css"
 
 export function App() {
   return (
     <div className="App">
-      <Form />
+      <Home />
     </div>
   )
 }
