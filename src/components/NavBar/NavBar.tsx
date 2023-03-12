@@ -1,20 +1,39 @@
-import { Box, Button, Typography } from '@material-ui/core'
+import styled from '@emotion/styled'
+import { AppBar, Box, Typography } from '@mui/material'
+import { ReactNode } from 'react'
+import { useStyles } from './styles'
+// import { Link } from 'react-router-dom'
 
-export function NavBar() {
+interface NavBarProps {
+  children?: ReactNode
+}
+
+export function NavBar({ children }: NavBarProps) {
+  const classes = useStyles()
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      padding={1}
-      justifyContent="space-between"
-    >
-      <Box>
-        <Typography variant="h6">BedTime Stories</Typography>
-      </Box>
-      <Box>
-        <Button>Home</Button>
-        <Button>About</Button>
-      </Box>
-    </Box>
+    <AppBar position="static" className={classes.title}>
+      <Spreader>
+        <Box>
+          <Typography>BedTime Stories</Typography>
+        </Box>
+        <Navigation>{children}</Navigation>
+      </Spreader>
+    </AppBar>
   )
 }
+
+const Navigation = styled('nav')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  flexGrow: 1,
+})
+
+const Spreader = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  flexGrow: 1,
+})
