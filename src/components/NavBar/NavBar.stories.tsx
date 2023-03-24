@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core"
 import { NavBar } from "./NavBar"
 
 /**
@@ -14,6 +15,8 @@ export default {
 
 export const Example = () => (
   <div style={{ width: "900px" }}>
-    <NavBar />
+    <NavBar>
+      <Button>About</Button>
+    </NavBar>
   </div>
 )
